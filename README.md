@@ -6,6 +6,7 @@ On running the server through `next dev`, the process hangs and it seems like it
 
 ![image](/terminal.png)
 
+I had to manually force quit the node process through Activity Monitor.
 Tailwind doesn't log any errors in the terminal for this. It took me a long time to figure out where I was going wrong. After hours of debugging, I finally noticed this mistake I made in `styles/tailwind.css`:
 
 ```
