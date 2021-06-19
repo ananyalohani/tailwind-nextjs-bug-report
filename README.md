@@ -1,29 +1,24 @@
-# Next.js + Tailwind CSS Example
+# Bug Report: Dev server hangs without logging errors
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) (v2.1) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+## Description
 
-It uses the new [`Just-in-Time Mode`](https://tailwindcss.com/docs/just-in-time-mode) for Tailwind CSS.
+On running the server through `next dev`, the process hangs and it seems like it takes forever to load the page. When I try to quit the dev process by <kbd>ctrl</kbd> + <kbd>C</kbd> on the terminal, it doesn't quit the process correctly, as seen here:
 
-## Preview
+![image](/terminal.png)
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+Tailwind doesn't log any errors in the terminal for this. It took me a long time to figure out where I was going wrong. After hours of debugging, I finally noticed this mistake I made in `styles/tailwind.css`:
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
-
-## Deploy your own
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
+```
+  .btn.link {
+    @apply btn underline;
+  }
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+Even though I realise what I've done is clearly wrong, Tailwind should've at least logged some errors in the console so it would save some time debugging. It definitely should not hang the dev server.
+
+## Steps to reproduce the bug
+
+```
+  npm install
+  npm run dev
+```

@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply bg-blue-600 p-3 rounded text-white font-semibold hover:bg-blue-700;
+  }
+
+  .btn.link {
+    /* ! DOING THIS HANGS THE SERVER */
+    @apply btn underline;
+  }
+}
